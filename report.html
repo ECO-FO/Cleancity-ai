@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanCity AI | Report</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50">
+    <div class="max-w-md mx-auto min-h-screen flex flex-col shadow-2xl bg-white">
+        <div class="p-6 bg-white flex items-center gap-4 shadow-sm relative z-10 border-b">
+            <a href="citizen.html" class="text-slate-400"><i data-lucide="arrow-left"></i></a>
+            <h1 class="text-lg font-bold">Report an Issue</h1>
+        </div>
+        <div class="p-6 flex-1 flex flex-col justify-center">
+            
+            <div id="uploadUI" class="fade-in">
+                <label for="wasteImage" class="border-2 border-dashed border-slate-300 rounded-3xl p-8 text-center cursor-pointer hover:border-emerald-500 h-64 flex flex-col justify-center items-center shadow-sm block">
+                    <div class="bg-emerald-100 text-emerald-600 w-16 h-16 rounded-full flex items-center justify-center mb-4"><i data-lucide="upload-cloud"></i></div>
+                    <h3 class="font-bold text-lg">Upload Photo</h3>
+                    <p class="text-xs text-slate-400 mt-2">AI will automatically analyze the image.</p>
+                    <input type="file" id="wasteImage" class="hidden" accept="image/*">
+                </label>
+            </div>
+
+            <div id="aiScanningUI" class="hidden text-center fade-in">
+                <div class="relative w-48 h-48 bg-slate-200 rounded-2xl overflow-hidden mb-6 mx-auto shadow-inner">
+                    <img src="https://images.unsplash.com/photo-1530587191325-3db32d826c18?auto=format&fit=crop&w=400&q=80" class="w-full h-full object-cover opacity-50 grayscale">
+                    <div class="scan-line"></div>
+                </div>
+                <h3 class="font-bold text-lg animate-pulse">AI is analyzing image...</h3>
+            </div>
+
+            <div id="aiResultUI" class="hidden fade-in">
+                <div class="bg-slate-50 rounded-3xl p-6 border border-emerald-100 relative mb-6">
+                    <h3 class="text-sm text-slate-500 uppercase font-semibold">Detection Result</h3>
+                    <p id="resType" class="text-2xl font-bold text-slate-900 mb-4">-</p>
+                    <div class="mb-4">
+                        <div class="flex justify-between text-xs mb-1"><span class="font-medium">AI Confidence</span><span id="resConf" class="font-bold text-emerald-600">-</span></div>
+                        <div class="w-full bg-slate-200 rounded-full h-2"><div id="resConfBar" class="bg-emerald-500 h-2 rounded-full" style="width: 0%"></div></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 mt-6">
+                        <div class="bg-white p-3 rounded-xl shadow-sm"><p class="text-[10px] text-slate-400 uppercase font-bold">Severity</p><p id="resSev" class="font-bold text-red-500">-</p></div>
+                        <div class="bg-white p-3 rounded-xl shadow-sm"><p class="text-[10px] text-slate-400 uppercase font-bold">Smart Priority</p><p id="resPriority" class="font-bold">-</p></div>
+                    </div>
+                </div>
+                <button id="submitReport" class="w-full bg-emerald-500 text-white py-4 rounded-full font-bold flex justify-center items-center gap-2">Confirm & Submit Report <i data-lucide="check"></i></button>
+            </div>
+        </div>
+    </div>
+    <script src="js/app.js"></script>
+</body>
+</html>
