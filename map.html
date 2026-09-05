@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanCity AI | Live Map</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-900 text-slate-300 overflow-hidden">
+    <div class="h-screen flex">
+        <!-- Sidebar Navigation -->
+        <aside class="w-64 glass-dark border-r border-slate-800 hidden md:flex flex-col z-10">
+            <div class="p-6 flex items-center gap-3 border-b border-slate-800">
+                <div class="bg-emerald-500 p-2 rounded text-white"><i data-lucide="leaf" class="w-5 h-5"></i></div>
+                <span class="text-white font-bold text-xl">CleanCity AI</span>
+            </div>
+            <nav class="flex-1 p-4 space-y-2">
+                <a href="admin.html" class="flex items-center gap-3 hover:text-white hover:bg-slate-800 px-4 py-3 rounded-xl transition-all"><i data-lucide="layout-dashboard" class="w-5 h-5"></i> Overview</a>
+                <a href="map.html" class="flex items-center gap-3 text-white bg-emerald-500/10 px-4 py-3 rounded-xl font-medium"><i data-lucide="map" class="w-5 h-5 text-emerald-500"></i> Live Hotspot Map</a>
+                <a href="analytics.html" class="flex items-center gap-3 hover:text-white hover:bg-slate-800 px-4 py-3 rounded-xl transition-all">
+                    <i data-lucide="zap" class="w-5 h-5"></i> Prediction Engine 
+                </a>
+            </nav>
+            <div class="p-4 border-t border-slate-800">
+                <a href="index.html" class="flex items-center gap-3 hover:text-white text-slate-500 px-4 py-3"><i data-lucide="log-out" class="w-5 h-5"></i> Exit Demo</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col relative">
+            <!-- Map Filters Overaly -->
+            <div class="absolute top-6 left-1/2 transform -translate-x-1/2 z-[1000] glass-dark px-4 py-3 rounded-full flex gap-4 shadow-2xl border border-slate-700">
+                <select class="bg-transparent text-sm text-white outline-none cursor-pointer"><option>All Wards</option><option>Ward 12</option></select>
+                <div class="w-px h-5 bg-slate-700"></div>
+                <select class="bg-transparent text-sm text-white outline-none cursor-pointer"><option>All Waste Types</option><option>Plastic</option></select>
+                <div class="w-px h-5 bg-slate-700"></div>
+                <label class="flex items-center gap-2 text-sm text-purple-400 cursor-pointer">
+                    <input type="checkbox" checked class="accent-purple-500"> AI Predicted Hotspots
+                </label>
+            </div>
+            
+            <!-- Map Container -->
+            <div id="fullScreenMap" class="w-full h-full z-0"></div>
+        </main>
+    </div>
+    
+    <script src="js/app.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            if(typeof L !== 'undefined') {
+                const map = L.map('fullScreenMap').setView([26.8467, 80.9462], 14);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png').addTo(map);
+
+                let reports = JSON.parse(localStorage.getItem('reports')) || [];
+                reports.forEach(report => {
+                    let color = report.severity === 'Critical' ? '#ef4444' : report.severity === 'High' ? '#f97316' : '#10b981';
+                    L.circleMarker([report.lat, report.lng], {
+                        radius: report.severity === 'Critical' ? 14 : 8,
+                        fillColor: color, color: color, weight: 1, opacity: 1, fillOpacity: 0.8
+                    }).addTo(map).bindPopup(`<strong class="text-slate-900">${report.ward}</strong><br><span class="text-xs text-slate-600">${report.waste_type} (Priority: ${report.priority_score})</span>`);
+                });
+
+                // AI Prediction Zone
+                L.circle([26.855, 80.955], { color: '#8b5cf6', fillColor: '#8b5cf6', fillOpacity: 0.2, radius: 1200 })
+                .addTo(map).bindPopup("<b>AI Prediction Zone - High Risk</b><br>Footfall increased by 14%. Immediate cleanup recommended.");
+            }
+        });
+    </script>
+</body>
+</html>
