@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CleanCity AI | My Reports</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="bg-slate-50">
+    <div class="max-w-md mx-auto min-h-screen bg-slate-50 relative pb-20 shadow-2xl">
+        <!-- Header -->
+        <div class="p-6 bg-white flex items-center gap-4 shadow-sm relative z-10 border-b">
+            <a href="citizen.html" class="text-slate-400 hover:text-slate-800 transition-colors"><i data-lucide="arrow-left"></i></a>
+            <h1 class="text-lg font-bold text-slate-800">My Reports</h1>
+        </div>
+
+        <div class="p-6 space-y-4" id="citizenReportsContainer">
+            <!-- Dynamic reports will be loaded here via JS. Below is the Skeleton/Demo structure -->
+            <div class="bg-white rounded-3xl p-5 shadow-sm border border-slate-100">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-wider">Report #1024</span>
+                        <h3 class="font-bold text-slate-900 text-lg">Plastic Waste</h3>
+                        <p class="text-xs text-slate-500"><i data-lucide="map-pin" class="w-3 h-3 inline"></i> Ward 12, Main Market</p>
+                    </div>
+                    <span class="bg-red-50 text-red-500 text-[10px] px-2 py-1 rounded-full font-bold border border-red-100">HIGH PRIORITY</span>
+                </div>
+
+                <!-- Status Timeline -->
+                <div class="relative pl-4 border-l-2 border-emerald-100 space-y-4 mt-6">
+                    <div class="relative">
+                        <div class="absolute -left-[21px] bg-emerald-500 w-3 h-3 rounded-full border-2 border-white"></div>
+                        <p class="text-xs font-bold text-emerald-600">Reported <span class="text-slate-400 font-normal ml-1">✓</span></p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[21px] bg-emerald-500 w-3 h-3 rounded-full border-2 border-white"></div>
+                        <p class="text-xs font-bold text-emerald-600">AI Analyzed <span class="text-slate-400 font-normal ml-1">✓</span></p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[21px] bg-emerald-500 w-3 h-3 rounded-full border-2 border-white"></div>
+                        <p class="text-xs font-bold text-emerald-600">Prioritized <span class="text-slate-400 font-normal ml-1">✓</span></p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[21px] bg-blue-500 w-3 h-3 rounded-full border-2 border-white animate-pulse"></div>
+                        <p class="text-xs font-bold text-blue-600">Team Assigned <span class="text-slate-400 font-normal ml-1">In Progress</span></p>
+                    </div>
+                    <div class="relative">
+                        <div class="absolute -left-[21px] bg-slate-200 w-3 h-3 rounded-full border-2 border-white"></div>
+                        <p class="text-xs font-bold text-slate-400">Resolved <span class="text-slate-300 font-normal ml-1">○</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
